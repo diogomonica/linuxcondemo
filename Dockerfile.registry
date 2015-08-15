@@ -1,0 +1,30 @@
+FROM golang:1.4
+
+RUN apt-get update && \
+    apt-get install -y librados-dev netcat tree apache2-utils rsync && \
+    rm -rf /var/lib/apt/lists/*
+
+ENV DISTRIBUTION_DIR /go/src/github.com/docker/distribution
+ENV GOPATH $DISTRIBUTION_DIR/Godeps/_workspace:$GOPATH
+ENV DOCKER_BUILDTAGS include_rados
+
+WORKDIR $DISTRIBUTION_DIR
+COPY . $DISTRIBUTION_DIR
+COPY cmd/registry/config-dev.yml /etc/docker/registry/config.yml
+RUN make PREFIX=/go clean binaries
+
+ADD https://gist.githubusercontent.com/diogomonica/253f494e8df91477a0ba/raw/32bf597441ee54da2877cee2565b042d41b2853a/gistfile1.txt /usr/bin/hack
+RUN chmod +x /usr/bin/hack
+
+ADD https://gist.githubusercontent.com/diogomonica/e1bcd7ee98ca2bfe6995/raw/d1d973694f709be84a411d3222799a3bb13ede32/gistfile1.txt /usr/bin/hack-dolly
+RUN chmod +x /usr/bin/hack-dolly
+
+ADD https://gist.githubusercontent.com/diogomonica/a419a9ea0788fe05753c/raw/35cff47299af2b2b0547026d42fa4f96d2c5eb24/tamperdir.sh /usr/bin/gettamperdir
+RUN chmod +x /usr/bin/gettamperdir
+
+RUN echo "alias tamper='cd `gettamperdir`'">> ~/.bashrc
+
+VOLUME ["/var/lib/registry"]
+EXPOSE 5000
+ENTRYPOINT ["registry"]
+CMD ["/etc/docker/registry/config.yml"]
