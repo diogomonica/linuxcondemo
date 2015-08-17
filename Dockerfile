@@ -1,7 +1,7 @@
 FROM ubuntu:14.04 
 
 
-ADD https://test.docker.com/builds/Linux/x86_64/docker-1.8.1 /usr/bin/docker
+ADD docker-1.8.1 /usr/bin/docker
 RUN chmod +x /usr/bin/docker \
   && apt-get update \
   && apt-get install -y \

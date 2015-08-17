@@ -2,7 +2,7 @@
 
 # Build and run notary
 git clone -b trust-sandbox https://github.com/docker/notary.git
-cd notary; docker-compose kill; docker-compose rm; docker-compose build && docker-compose up -d
+cd notary; docker-compose kill; docker-compose rm -f; docker-compose build && docker-compose up -d
 cd ..
 
 # Build and run registry
