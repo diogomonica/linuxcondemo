@@ -13,16 +13,16 @@ COPY . $DISTRIBUTION_DIR
 COPY cmd/registry/config-dev.yml /etc/docker/registry/config.yml
 RUN make PREFIX=/go clean binaries
 
-ADD https://gist.githubusercontent.com/diogomonica/253f494e8df91477a0ba/raw/32bf597441ee54da2877cee2565b042d41b2853a/gistfile1.txt /usr/bin/hack-demo
+ADD hack-demo.txt /usr/bin/hack-demo
 RUN chmod +x /usr/bin/hack-demo
 
-ADD https://gist.githubusercontent.com/diogomonica/e1bcd7ee98ca2bfe6995/raw/d1d973694f709be84a411d3222799a3bb13ede32/gistfile1.txt /usr/bin/hack-dolly
+ADD hack-dolly.txt /usr/bin/hack-dolly
 RUN chmod +x /usr/bin/hack-dolly
 
-ADD https://gist.githubusercontent.com/diogomonica/a419a9ea0788fe05753c/raw/35cff47299af2b2b0547026d42fa4f96d2c5eb24/tamperdir.sh /usr/bin/dollytamper
+ADD dollytamper.sh /usr/bin/dollytamper
 RUN chmod +x /usr/bin/dollytamper
 
-ADD https://gist.githubusercontent.com/diogomonica/f1fafdddfdd20158ace7/raw/ed8f9858a1e3aa95d102885d367fc8c767f68757/demotamper /usr/bin/demotamper
+ADD demotamper.sh /usr/bin/demotamper
 RUN chmod +x /usr/bin/demotamper
 
 VOLUME ["/var/lib/registry"]

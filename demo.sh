@@ -8,6 +8,7 @@ cd ..
 # Build and run registry
 git clone https://github.com/docker/distribution.git
 cp Dockerfile.registry distribution/Dockerfile
+cp hack-dolly.txt hack-demo.txt demotamper.sh dollytamper.sh distribution/
 cd distribution; docker build -t registry .
 docker kill registry; docker rm registry; docker run -d -p 5000:5000 --name registry registry
 cd ..
